@@ -1,5 +1,8 @@
 Revision history for Perl extension Apache::ForwardedFor.
 
+0.5  Thu Jul 06:29:22 2002-07-11
+     - some doc fixes
+
 0.4  Tue Jul 12:12:00 2002-07-09
      - changed configuration variable names to more reasonable ones
      - cleaned up logic

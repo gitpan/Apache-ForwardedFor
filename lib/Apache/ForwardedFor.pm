@@ -4,7 +4,7 @@ use strict;
 
 BEGIN {
 	use vars qw ($VERSION);
-    $VERSION     = sprintf "%d.%03d", q$Revision: 1.8 $ =~ /(\d+)\.(\d+)/;
+    $VERSION     = sprintf "%d.%03d", q$Revision: 1.9 $ =~ /(\d+)\.(\d+)/;
 	# use vars qw ($TRACE);
     # $TRACE       = 1;
 }
@@ -53,17 +53,19 @@ sub handler {
 
 =head1 NAME
 
-Apache::ForwardedFor - Re-set remote_ip to incoming client's ip when running mod_perl
-behind a reverse proxy server. In other words, copy the first IP
-from B<X-Forwarded-For> header, which was set by your reverse proxy server, 
+Apache::ForwardedFor - Re-set remote_ip to incoming client's ip when running mod_perl behind a reverse proxy server. 
+In other words, copy the first IP from B<X-Forwarded-For> header, which was set by your reverse proxy server, 
 to the B<remote_ip> connection property.
 
 =head1 SYNOPSIS
 
   in httpd.conf
 
-  PerlModule Apache::ForwardedFor
+  PerlModule                 Apache::ForwardedFor
   PerlPostReadRequestHandler Apache::ForwardedFor
+
+  PerlSetVar  ForwardedForAccept 192.168.1.1
+  PerlAddVar  ForwardedForAccept 192.168.1.2
 
 =head1 DESCRIPTION
 
@@ -80,6 +82,7 @@ address - making it difficult to implement IP-based access control
 and tracking usage through your logs.
 
 Before: 
+
  +--------+     +-------------+     +----------------+
  | Client | <-> | httpd/proxy | <-> | httpd/mod_perl |
  +--------+     +-------------+     +----------------+
@@ -89,6 +92,7 @@ Before:
                    2.3.4.5             2.9.1.2
 
 After:
+
  +--------+     +-------------+     +----------------+
  | Client | <-> | httpd/proxy | <-> | httpd/mod_perl |
  +--------+     +-------------+     +----------------+
@@ -155,9 +159,9 @@ pointless but will be more useful when/if netblock support is added.
 
 =head1 BUGS
 
-Please report your bugs and suggestions for improvement to the Infonium 
-Information Line <info@infonium.com>. For faster service please in
-clude "Apache::ForwardedFrom" and "bug" in your subject line.
+Please report your bugs and suggestions for improvement to 
+info@infonium.com ... For faster service please in
+clude "Apache::ForwardedFor" and "bug" in your subject line.
 
 I have not yet found written documentation on the usage of the X-Forwarded-For
 header. My implementation assumes that the first IP in the incoming header
@@ -165,13 +169,13 @@ is for your (the most recent) proxy server.
 
 =head1 SUPPORT
 
-For technical support please email the Infonium 
-Information Line <info@infonium.com>. For faster service please in
+For technical support please email to
+info@infonium.com ... for faster service please in
 clude "Apache::ForwardedFrom" and "help" in your subject line.
 
 =head1 AUTHOR
 
- Jay J. Lawrence - <jlawrenc@cpan.org>
+ Jay J. Lawrence - jlawrenc@cpan.org
  Infonium Inc., Canada
  http://www.infonium.com/perl
 
